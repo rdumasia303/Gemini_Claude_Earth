@@ -155,7 +155,7 @@ async function init() {
   // ISS crew count (single call, delayed to avoid 429 rate limit)
   setTimeout(async () => {
     try {
-      const res = await fetch('https://corqueries.com/astros.json');
+      const res = await fetch('https://api.open-notify.org/astros.json');
       const data = await res.json();
       const crewEl = document.getElementById('iss-crew');
       if (crewEl && data.number) {
