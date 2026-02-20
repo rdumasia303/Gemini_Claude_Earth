@@ -6,12 +6,13 @@ const R = 1.0;
 export async function createGlobe(scene) {
     const texLoader = new THREE.TextureLoader();
 
+    const base = import.meta.env.BASE_URL;
     const [tDay, tNight, tCloud, tHeight, tMilkyWay] = await Promise.all([
-        texLoader.loadAsync('/textures/earth_day_8k.jpg').catch(() => texLoader.loadAsync('/textures/earth_day_4k.jpg')),
-        texLoader.loadAsync('/textures/earth_night_8k.jpg').catch(() => texLoader.loadAsync('/textures/earth_night_4k.jpg')),
-        texLoader.loadAsync('/textures/earth_clouds_8k.jpg').catch(() => texLoader.loadAsync('/textures/earth_clouds.jpg')),
-        texLoader.loadAsync('/textures/earth_heightmap.png'),
-        texLoader.loadAsync('/textures/milkyway_8k.jpg').catch(() => texLoader.loadAsync('/textures/milkyway.png')).catch(() => null)
+        texLoader.loadAsync(`${base}textures/earth_day_8k.jpg`).catch(() => texLoader.loadAsync(`${base}textures/earth_day_4k.jpg`)),
+        texLoader.loadAsync(`${base}textures/earth_night_8k.jpg`).catch(() => texLoader.loadAsync(`${base}textures/earth_night_4k.jpg`)),
+        texLoader.loadAsync(`${base}textures/earth_clouds_8k.jpg`).catch(() => texLoader.loadAsync(`${base}textures/earth_clouds.jpg`)),
+        texLoader.loadAsync(`${base}textures/earth_heightmap.png`),
+        texLoader.loadAsync(`${base}textures/milkyway_8k.jpg`).catch(() => texLoader.loadAsync(`${base}textures/milkyway.png`)).catch(() => null)
     ]);
 
     // Earth textures — ClampToEdge prevents seam
@@ -58,7 +59,7 @@ export async function createGlobe(scene) {
     // Try to load sun texture, fall back to emissive white
     let sunMat;
     try {
-        const sunTex = await texLoader.loadAsync('/textures/sun_8k.jpg');
+        const sunTex = await texLoader.loadAsync(`${base}textures/sun_8k.jpg`);
         sunTex.colorSpace = THREE.SRGBColorSpace;
         sunMat = new THREE.MeshBasicMaterial({ map: sunTex });
     } catch {

@@ -37,7 +37,7 @@ export class EarthOrbits {
         const moonGeo = new THREE.SphereGeometry(0.27, 64, 64);
 
         // Try to load moon texture, fall back to grey
-        texLoader.load('/textures/moon_8k.jpg',
+        texLoader.load(`${import.meta.env.BASE_URL}textures/moon_8k.jpg`,
             (tex) => {
                 tex.colorSpace = THREE.SRGBColorSpace;
                 const mat = new THREE.MeshStandardMaterial({
