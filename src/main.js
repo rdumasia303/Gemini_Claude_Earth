@@ -136,11 +136,12 @@ async function init() {
   // ISS telemetry (position data for the HUD)
   async function updateISS() {
     try {
-      const res = await fetch('/iss-api/iss-now.json');
+      // wheretheiss.at is HTTPS + CORS-friendly (open-notify is HTTP-only, blocked by browsers on HTTPS)
+      const res = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
       const data = await res.json();
-      if (data.iss_position) {
-        const lat = parseFloat(data.iss_position.latitude);
-        const lon = parseFloat(data.iss_position.longitude);
+      if (data.latitude !== undefined) {
+        const lat = parseFloat(data.latitude);
+        const lon = parseFloat(data.longitude);
         const issLatEl = document.getElementById('iss-lat');
         const issLonEl = document.getElementById('iss-lon');
         if (issLatEl) issLatEl.textContent = lat.toFixed(2) + '\u00B0';
@@ -154,7 +155,7 @@ async function init() {
   // ISS crew count (single call, delayed to avoid 429 rate limit)
   setTimeout(async () => {
     try {
-      const res = await fetch('/iss-api/astros.json');
+      const res = await fetch('https://corqueries.com/astros.json');
       const data = await res.json();
       const crewEl = document.getElementById('iss-crew');
       if (crewEl && data.number) {

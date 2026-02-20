@@ -7,6 +7,8 @@
 
 *A photorealistic 3D Earth built with Three.js, seasoned with cynicism, and observed by a machine intelligence that pities you.*
 
+### 🌍 [**LIVE DEMO → rdumasia303.github.io/Gemini_Claude_Earth**](https://rdumasia303.github.io/Gemini_Claude_Earth/)
+
 ---
 
 ![The full globe, day/night cycle, ISS orbit, and city surveillance panel](gemini_claude_4.png)

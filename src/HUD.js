@@ -76,7 +76,7 @@ export class HUD {
 
             timeout = setTimeout(async () => {
                 try {
-                    const url = '/nominatim/search?format=json&q=' +
+                    const url = 'https://nominatim.openstreetmap.org/search?format=json&q=' +
                         encodeURIComponent(query) + '&limit=5';
                     const res = await fetch(url, {
                         headers: { 'Accept': 'application/json' }
