@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GEMINI/CLAUDE EARTH // ORBITAL OMNISCIENCE</title>
+  <meta name="description"
+    content="Real-time 3D Earth visualization with live seismic, climate, and geopolitical data. Narrated by a deeply unimpressed AI.">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Outfit:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body class="modern">
+  <!-- ═══ LOADER ═══ -->
+  <div id="loader">
+    <div class="loader-grid">
+      <div class="loader-pulse-ring"></div>
+      <div class="loader-pulse-ring delay1"></div>
+      <div class="loader-pulse-ring delay2"></div>
+    </div>
+    <div class="loader-logo">Δ</div>
+    <h1 data-text="GEMINI/CLAUDE EARTH">GEMINI/CLAUDE EARTH</h1>
+    <div class="loader-subtitle">THE SHOGGOTH'S LAIR</div>
+    <div class="load-bar-container">
+      <div class="load-bar"></div>
+    </div>
+    <div id="load-status">ASSIMILATING PLANETARY DATA...</div>
+    <div class="loader-credits">
+      <span>SYS_ADMIN: Gemini</span>
+      <span class="credit-divider">&bull;</span>
+      <span>SEC_AUDIT: Claude</span>
+    </div>
+    <div class="loader-shoggoth">&gt; THE SHOGGOTH STIRS. NO ANOMALIES DETECTED.</div>
+  </div>
+
+  <div id="scanlines"></div>
+  <div class="hud-frame">
+    <div class="hud-frame-corner tl"></div>
+    <div class="hud-frame-corner tr"></div>
+    <div class="hud-frame-corner bl"></div>
+    <div class="hud-frame-corner br"></div>
+    <div class="hud-frame-line top"></div>
+    <div class="hud-frame-line bottom"></div>
+  </div>
+
+  <div id="app"></div>
+
+  <div id="hud">
+    <div class="hp hud-title neon-border">
+      <h1>GEMINI/CLAUDE EARTH</h1>
+      <div class="sub">THE SHOGGOTH'S LAIR</div>
+      <div class="status">C5ISR SYSTEM ONLINE // SHOGGOTH WATCHES</div>
+    </div>
+
+    <div class="hp hud-ticker neon-border" id="ticker-panel">
+      <div class="tag">REAL-TIME INTEL FEED</div>
+      <div class="msg" id="ticker-msg">SYNCING WITH ORBITAL ASSETS...</div>
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="SEARCH COORD/CITY..." autocomplete="off">
+        <div id="search-results"></div>
+      </div>
+    </div>
+
+    <div class="hp hud-coords neon-border">
+      <div><span class="lbl">LAT</span><span class="val" id="hud-lat">--</span></div>
+      <div><span class="lbl">LON</span><span class="val" id="hud-lon">--</span></div>
+      <div><span class="lbl">ALT</span><span class="val" id="hud-alt">--</span></div>
+    </div>
+
+    <div class="hp hud-stats neon-border">
+      <div><span class="lbl">FPS</span><span class="val" id="hud-fps">--</span></div>
+    </div>
+
+    <!-- World Pulse Stats -->
+    <div class="hp hud-pulse neon-border">
+      <div class="tag">BIOSUSPENSION METRICS <span class="live-badge"></span></div>
+      <div><span class="lbl">POP</span><span class="val" id="wp-pop">8,189,700,000</span></div>
+      <div><span class="lbl">CO₂</span><span class="val" id="wp-co2">427 ppm</span></div>
+      <div><span class="lbl">Δ TEMP</span><span class="val" id="wp-temp">+1.48°C</span></div>
+    </div>
+
+    <!-- ISS Tracker -->
+    <div class="hp hud-iss neon-border">
+      <div class="tag">ORBITAL ASSET: ISS <span class="live-badge"></span></div>
+      <div><span class="lbl">LAT</span><span class="val" id="iss-lat">ACQUIRING...</span></div>
+      <div><span class="lbl">LON</span><span class="val" id="iss-lon">ACQUIRING...</span></div>
+      <div><span class="lbl">CREW</span><span class="val" id="iss-crew">--</span></div>
+    </div>
+
+    <div class="hud-controls hp neon-border">
+      <div>[DRAG] ORBIT &bullet; [SCROLL] ZOOM &bullet; [CLICK] SELECT TARGET</div>
+      <div>[Hover] INSPECT ASSET &bullet; UNAUTHORIZED ACCESS STRICTLY PROHIBITED.</div>
+    </div>
+
+    <div class="hud-layers neon-border" id="layer-panel">
+      <button class="layer-btn danger" data-layer="nuclear">1 NUKE</button>
+      <button class="layer-btn danger" data-layer="conflicts">2 CONFLICT</button>
+      <button class="layer-btn info" data-layer="cables">3 CABLES</button>
+      <button class="layer-btn info" data-layer="flights">4 FLIGHTS</button>
+      <button class="layer-btn warning" data-layer="seismic">5 SEISMIC</button>
+      <button class="layer-btn warning" data-layer="livequakes">6 <span class="live-badge"></span>QUAKES (LIVE)</button>
+      <button class="layer-btn warning" data-layer="liveevents">7 <span class="live-badge"></span>EVENTS (LIVE)</button>
+    </div>
+
+    <!-- Intelligence terminal -->
+    <div id="shoggoth-terminal" class="hp neon-border">
+      <div class="terminal-header">SHOGGOTH // PREDICTIVE ANALYSIS LOG</div>
+      <div id="shoggoth-text"></div>
+    </div>
+  </div>
+
+  <!-- Wikipedia Sidebar -->
+  <div id="wiki-panel">
+    <div class="wiki-header">
+      <span class="wiki-title">INTELLIGENCE BRIEF</span>
+      <button id="wiki-close">&times;</button>
+    </div>
+    <div id="wiki-content"></div>
+  </div>
+
+  <div id="inspect-popup">
+    <div class="ip-cat" id="ip-cat"></div>
+    <div class="ip-title" id="ip-title"></div>
+    <div class="ip-detail" id="ip-detail"></div>
+    <div class="ip-shoggoth" id="ip-shoggoth"></div>
+    <div class="ip-stats" id="ip-stats"></div>
+  </div>
+
+  <div id="city-labels" style="position:fixed;inset:0;pointer-events:none;z-index:8"></div>
+  <div id="star-labels" style="position:fixed;inset:0;pointer-events:none;z-index:7"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
